@@ -1,20 +1,11 @@
-let money = 30000, 
-    income = 'фриланс', 
-    addExpenses = 'Интернет, Бензин, Кофе', 
-    deposit = true, 
-    mission = 200000, 
-    period = 6;
+let num = 266219;
+let str = String(num);
 
-console.log(typeof (money));
-console.log(typeof (income));
-console.log(typeof (deposit));
+let result = 1;
+for (let i = 0; i < str.length; i++) {
+  result *= str[i];
+}
+console.log('результат умножения всех цифр в числе ' + num + ' = ' + result);
 
-console.log(addExpenses.length);
-
-console.log('Период равен ' + period + ' месяцев');
-console.log('Цель заработать ' + mission + ' рублей');
-
-console.log(addExpenses.toLowerCase().split(', '));
-
-let budgetDay = money / 30;
-console.log(budgetDay);
+let resultPow = String(result ** 3);
+console.log(resultPow[0] + ', ' + resultPow[1]);
