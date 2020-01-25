@@ -8,4 +8,4 @@ for (let i = 0; i < str.length; i++) {
 console.log('результат умножения всех цифр в числе ' + num + ' = ' + result);
 
 let resultPow = String(result ** 3);
-console.log(resultPow[0] + ', ' + resultPow[1]);
+console.log(resultPow[0] + resultPow[1]);
