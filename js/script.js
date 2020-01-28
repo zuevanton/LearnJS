@@ -1,8 +1,9 @@
 'use strict';
 let arg = prompt('введите что нибудь');
 function myFunction(arg){
-  if (arg === null){
+  if (typeof(arg) !== 'string'){
     alert('передана не строка!');
+    console.log(typeof(arg));
     arg = prompt('попробуйте еще раз');
     return myFunction(arg);
   }
