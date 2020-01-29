@@ -16,6 +16,6 @@ for(let i = 2; i < 100; i++){
     }
   }
   if (k === i){
-    console.log(i);
+    console.log('делитель числа ' + i + ': 1 и ' + i);
   }
 }
