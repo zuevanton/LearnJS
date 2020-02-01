@@ -3,12 +3,6 @@
 let week = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
     div = document.createElement('div'),
     date = new Date();
-// week.forEach(function(item, i){
-//   if ((i === 6 && date.getDay() === 0) || (i === 5 && date.getDay() === 6)){
-//     div.innerHTML += '<p><b>' + item + '</b></p>';
-//   }
-  
-// });
 
 function createDay(day, num){
   // если попадаем на субботу и вскр, то выводим их Ж и К
@@ -33,6 +27,4 @@ for(let i = 1; i < week.length; i++){
   createDay(week[i], i);
 }
 createDay(week[0], 0);
-
-console.log(date.getDay());
 document.body.append(div);
