@@ -1,4 +1,24 @@
 'use strict';
+let startBtn = document.getElementById('start'),
+    addIncomeBtn = document.getElementsByTagName('button')[0],
+    addExpensesBtn = document.getElementsByTagName('button')[1],
+    depositCheckBtn = document.querySelector('#deposit-check'),
+    addIncomeInput = document.querySelectorAll('.additional_income-item'),
+    budgetMonthValue = document.getElementsByClassName('budget_month-value')[0],
+    budgetDayValue = document.getElementsByClassName('budget_day-value')[0],
+    expensesMonthValue = document.getElementsByClassName('expenses_month-value')[0],
+    additionalIncomeValue = document.getElementsByClassName('additional_income-value')[0],
+    additionalexpensesValue = document.getElementsByClassName('additional_expenses-value')[0],
+    incomePeriodValue = document.querySelector('.income_period-value'),
+    targetMonthValue = document.querySelector('.target_month-value'),
+    salaryAmount = document.querySelector('.salary-amount'),
+    incomeTitle = document.querySelector('.income-title'),
+    incomeAmount = document.querySelector('.income-amount'),
+    expensesTitle = document.querySelector('.expenses-title'),
+    expensesAmount = document.querySelector('.expenses-amount'),
+    addExpensesItem = document.querySelector('.additional_expenses-item'),
+    targetAmount = document.querySelector('.target-amount'),
+    period = document.querySelector('.period-select');
 const isNumber = function(n){
   return !isNaN(parseFloat(n)) && isFinite(n);
 };
@@ -23,28 +43,7 @@ const getTextFromPrompt = function(promptText){
 
 let money = getNumberFromPrompt('Ваш месячный доход?');
 
-let 
-    startBtn = document.getElementById('start'),
-    addIncomeBtn = document.querySelector('.income').getElementsByTagName('button')[0],
-    addExpensesBtn = document.querySelector('.expenses').getElementsByTagName('button')[0],
-    depositCheckBtn = document.querySelector('#deposit-check'),
-    addIncomeInput = document.querySelectorAll('.additional_income-item'),
-    budgetMonthValue = document.querySelector('.budget_month-value'),
-    budgetDayValue = document.querySelector('.budget_day-value'),
-    expensesMonthValue = document.querySelector('.expenses_month-value'),
-    additionalIncomeValue = document.querySelector('.additional_income-value'),
-    additionalexpensesValue = document.querySelector('.additional_expenses-value'),
-    incomePeriodValue = document.querySelector('.income_period-value'),
-    targetMonthValue = document.querySelector('.target_month-value'),
-    salaryAmount = document.querySelector('.salary-amount'),
-    incomeTitle = document.querySelector('.income-title'),
-    incomeAmount = document.querySelector('.income-amount'),
-    expensesTitle = document.querySelector('.expenses-title'),
-    expensesAmount = document.querySelector('.expenses-amount'),
-    addExpensesItem = document.querySelector('.additional_expenses-item'),
-    targetAmount = document.querySelector('.target-amount'),
-    period = document.querySelector('.period-select'),
-appData = {
+let appData = {
   income: {},
   addIncome: [],
   expenses: {},
