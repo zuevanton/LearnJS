@@ -1,69 +1,30 @@
 'use strict';
-function dateOut(){
-  
-  let fullDate = document.querySelector('.long-date'),
-      shortDate = document.querySelector('.short-date'),
-      date = new Date(),
-      hour = date.getHours(),
-      minute = date.getMinutes(),
-      second = date.getSeconds(),
-      longFormatDate = new Intl.DateTimeFormat('ru', {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-      }),
-      shortFormatDate = new Intl.DateTimeFormat('ru', {
-        month: '2-digit',
-        day: '2-digit',
-        year: 'numeric'
-      }),
-      formatTime = new Intl.DateTimeFormat('ru', {
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit'
-      });
+let booksList = document.querySelector('.books'),
+    book1 = booksList.getElementsByClassName('book')[1],
+    book2 = booksList.getElementsByClassName('book')[0],
+    book3 = booksList.getElementsByClassName('book')[4],
+    book4 = booksList.getElementsByClassName('book')[3],
+    book5 = booksList.getElementsByClassName('book')[5],
+    book6 = booksList.getElementsByClassName('book')[2],
+    adv   = document.querySelector('.adv'),
+    chaptersBook2 = book2.querySelectorAll('li'),
+    chaptersBook5 = book5.querySelectorAll('li'),
+    newChapter = document.createElement('li');
+// console.log(book1, book2, book3, book4, book5, book6)
 
-  const getLongDateFormat = function (){
-    return longFormatDate.format(date);
-  };
+booksList.appendChild(book6);
+booksList.insertBefore(book1, book2);
+booksList.insertBefore(book3, book4);
+document.body.style.backgroundImage = 'url("./image/you-dont-know-js.jpg")';
+book3.querySelector('a').textContent = 'Книга 3. this и Прототипы Объектов';
+adv.remove();
 
-  const getShortDateFormat = function(){
-    return shortFormatDate.format(date);
-  };
+book2.querySelector('ul').insertBefore(chaptersBook2[6], chaptersBook2[4]);
+book2.querySelector('ul').insertBefore(chaptersBook2[8], chaptersBook2[4]);
 
-  const getShortTimeFormat = function(){
-   return formatTime.format(date);
-  };
+book5.querySelector('ul').insertBefore(chaptersBook5[9], chaptersBook5[2]);
+book5.querySelector('ul').insertBefore(chaptersBook5[2], chaptersBook5[5]);
+book5.querySelector('ul').insertBefore(chaptersBook5[5], chaptersBook5[8]);
 
-  function num2str(n, textForms) {  
-    n = Math.abs(n) % 100;
-    let n1 = n % 10;
-    if (n > 10 && n < 20) { 
-     return textForms[2];
-    }
-    if (n1 > 1 && n1 < 5) 
-    { 
-      return textForms[1]; 
-    }
-    if (n1 === 1) { 
-     return textForms[0]; 
-    }
-     return textForms[2];
-  }
-  
-  let hourDeclension = ' ' + num2str(hour, ['час', 'часа', 'часов']) + ' ',
-  minuteDeclension = ' ' + num2str(minute, ['минута', 'минуты', 'минут']) + ' ',
-  secondDeclension = ' ' + num2str(second, ['секунда', 'секунды', 'секунд']) + ' ';
-
-
-
-  shortDate.innerHTML = getShortDateFormat() + ' - ' + getShortTimeFormat();
-  fullDate.innerHTML = 'Сегодня ' + getLongDateFormat() + ', ' + hour + hourDeclension + minute +
-  minuteDeclension + second + secondDeclension;
-
-}
-
-setInterval(function(){
-  dateOut();
-}, 1000);
+newChapter.textContent = 'Глава 8: За пределами ES6';
+book6.querySelector('ul').insertBefore(newChapter, book6.querySelectorAll('li')[9]);
