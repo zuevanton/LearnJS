@@ -223,9 +223,18 @@ let appData = {
     periodSelect.value = 1;
     expensesPlus.style.display = 'block';
     incomePlus.style.display = 'block';
+    document.querySelectorAll('.expenses-items').forEach((item, i) => {
+      if (i > 0){
+        item.innerHTML = '';
+      }
+    });
+    document.querySelectorAll('.income-items').forEach((item, i) => {
+      if (i > 0){
+        item.innerHTML = '';
+      }
+    });
   }
 };
-
 start.disabled = true;
 salaryAmount.addEventListener('input', function(e){
   if(e.target.value === ''){
