@@ -21,6 +21,7 @@ adv.remove();
 
 book2.querySelector('ul').insertBefore(chaptersBook2[6], chaptersBook2[4]);
 book2.querySelector('ul').insertBefore(chaptersBook2[8], chaptersBook2[4]);
+book2.querySelector('ul').insertBefore(chaptersBook2[2], chaptersBook2[10]);
 
 book5.querySelector('ul').insertBefore(chaptersBook5[9], chaptersBook5[2]);
 book5.querySelector('ul').insertBefore(chaptersBook5[2], chaptersBook5[5]);
