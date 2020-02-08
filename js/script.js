@@ -50,7 +50,6 @@ let appData = {
     this.showResult();
     this.blockInputs();
     this.showClear();
-    this.reset();
   },
   showResult: function(){
     budgetMonthValue.value = this.budgetMonth;
@@ -199,15 +198,27 @@ let appData = {
     cancel.style.display = 'block';
   },
   reset: function(){
-    cancel.addEventListener('click', function(){
-      document.querySelectorAll('input[type="text"]').forEach(item =>{
-        item.disabled = false;
-        item.value = '';
-      });
-      start.style.display = 'block';
-      cancel.style.display = 'none';
-      start.disabled = true;
+    document.querySelectorAll('input[type="text"]').forEach(item =>{
+      item.disabled = false;
+      item.value = '';
     });
+    start.style.display = 'block';
+    cancel.style.display = 'none';
+    start.disabled = true;
+    this.income = {};
+    this.incomeMonth = 0;
+    this.addIncome = [];
+    this.expenses = {};
+    this.expensesMonth = 0;
+    this.addExpenses = [];
+    this.deposit = false;
+    this.percentDeposit = 0;
+    this.moneyDeposit = 0;
+    this.budget = 0;
+    this.budgetDay = 0;
+    this.budgetMonth = 0;
+    periodAmount.textContent = 1;
+    periodSelect.value = 1;
   }
 };
 
@@ -221,6 +232,8 @@ salaryAmount.addEventListener('input', function(e){
   }
 });
 start.addEventListener('click', appData.start.bind(appData));
+
+cancel.addEventListener('click', appData.reset.bind(appData));
 
 appData.validateText();
 appData.validateNumber();
