@@ -43,7 +43,30 @@ const getTextFromPrompt = function(promptText){
   return answer;
 };
 
-
+function validateNumber(){
+  document.querySelectorAll('[placeholder="Сумма"]').forEach((item) => {
+    item.addEventListener('keydown', function(e){
+      if((e.key >= '0' && e.key <= '9') || e.key === 'ArrowLeft' || e.key === 'ArrowRight' || e.key === 'Delete' || e.key === 'Backspace'){
+        return e.key;
+      }
+      else e.preventDefault();
+    });
+  });
+}
+validateNumber();
+function validateText(){
+  document.querySelectorAll('[placeholder="Наименование"]').forEach((item) => {
+      item.addEventListener('keydown', function(e){
+        let reg = /[а-яё]/i;
+        if(reg.test(e.key) || e.key === 'ArrowLeft' || e.key === 'ArrowRight' || e.key === 'Delete' ||
+        e.key === 'Backspace' || e.key === ' ' || e.key === ',' || e.key === '.'){
+          return e.key;
+        }
+        else e.preventDefault();
+      });
+  })
+}
+validateText();
 let appData = {
   income: {},
   incomeMonth: 0,
@@ -58,9 +81,6 @@ let appData = {
   budgetDay: 0,
   budgetMonth: 0,
   start: function(){
-    // if(salaryAmount === ''){
-    //   return;
-    // }
     appData.budget = +salaryAmount.value;
     appData.getExpenses();
     appData.getExpensesMonth();
@@ -119,16 +139,24 @@ let appData = {
   },
   addExpensesBlock: function(){
     let cloneExpensesItem = expensesItems[0].cloneNode(true);
+    cloneExpensesItem.querySelectorAll('input')[0].value = '';
+    cloneExpensesItem.querySelectorAll('input')[1].value = '';
     expensesItems[0].parentNode.insertBefore(cloneExpensesItem, expensesPlus);
     expensesItems = document.querySelectorAll('.expenses-items');
+    validateNumber();
+    validateText();
     if(expensesItems.length === 3){
       expensesPlus.style.display = 'none';
     }
   },
   addIncomeBlock: function(){
     let cloneIncomeItem = incomeItems[0].cloneNode(true);
+    cloneIncomeItem.querySelectorAll('input')[0].value = '';
+    cloneIncomeItem.querySelectorAll('input')[1].value = '';
     incomeItems[0].parentNode.insertBefore(cloneIncomeItem, incomePlus);
     incomeItems = document.querySelectorAll('.income-items');
+    validateNumber();
+    validateText();
     if(incomeItems.length === 3) {
       incomePlus.style.display = 'none';
     }
