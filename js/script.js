@@ -225,12 +225,12 @@ let appData = {
     incomePlus.style.display = 'block';
     document.querySelectorAll('.expenses-items').forEach((item, i) => {
       if (i > 0){
-        item.innerHTML = '';
+        item.remove();
       }
     });
     document.querySelectorAll('.income-items').forEach((item, i) => {
       if (i > 0){
-        item.innerHTML = '';
+        item.remove();
       }
     });
   }
