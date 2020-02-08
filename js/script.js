@@ -196,6 +196,8 @@ let appData = {
   showClear: function(){
     start.style.display = 'none';
     cancel.style.display = 'block';
+    expensesPlus.style.display = 'none';
+    incomePlus.style.display = 'none';
   },
   reset: function(){
     document.querySelectorAll('input[type="text"]').forEach(item =>{
@@ -219,6 +221,8 @@ let appData = {
     this.budgetMonth = 0;
     periodAmount.textContent = 1;
     periodSelect.value = 1;
+    expensesPlus.style.display = 'block';
+    incomePlus.style.display = 'block';
   }
 };
 
