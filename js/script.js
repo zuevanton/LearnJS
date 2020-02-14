@@ -19,7 +19,11 @@ const start = document.getElementById('start'),
     targetAmount = document.querySelector('.target-amount'),
     periodSelect = document.querySelector('.period-select'),
     periodAmount = document.querySelector('.period-amount'),
-    cancel = document.getElementById('cancel');
+    cancel = document.getElementById('cancel'),
+    depositBank = document.querySelector('.deposit-bank'),
+    depositAmount = document.querySelector('.deposit-amount'),
+    depositPercent = document.querySelector('.deposit-percent');
+
 let incomeItems = document.querySelectorAll('.income-items'),
     expensesItems = document.querySelectorAll('.expenses-items');
 
@@ -48,8 +52,7 @@ class AppData {
     this.budget = +salaryAmount.value;
     this.getExpInc();
     this.getExpensesMonth();
-    // this.getAddExpenses();
-    // this.getAddIncome();
+    this.getInfoDeposit();
     this.getBudget();
     this.getAddExpInc(additionalExpensesItem);
     this.getAddExpInc(additionalIncomeItem);
@@ -76,7 +79,8 @@ class AppData {
   }
   
   getBudget(){
-    this.budgetMonth = this.budget + this.incomeMonth - this.expensesMonth;
+    const monthDeposit = this.moneyDeposit * this.percentDeposit / 100;
+    this.budgetMonth = this.budget + this.incomeMonth - this.expensesMonth + monthDeposit;
     this.budgetDay = Math.floor(this.budgetMonth / 30);
   }
   getTargetMonth(){
@@ -156,7 +160,7 @@ class AppData {
     periodAmount.textContent = periodSelect.value;
   }
   validateNumber(){
-    document.querySelectorAll('[placeholder="Сумма"]').forEach((item) => {
+    document.querySelectorAll('[placeholder="Сумма"],[placeholder="Процент"]').forEach((item) => {
       item.addEventListener('keydown', function(e){
         if((e.key >= '0' && e.key <= '9') || e.key === 'ArrowLeft' || e.key === 'ArrowRight' || e.key === 'Delete' || e.key === 'Backspace'){
           return e.key;
@@ -176,6 +180,50 @@ class AppData {
           else e.preventDefault();
         });
     });
+  }
+  getInfoDeposit(){
+    if(this.deposit){
+      this.percentDeposit = depositPercent.value;
+      this.moneyDeposit = depositAmount.value;
+      
+    }
+  }
+  changePercent(){
+    const validatePercent = () =>{
+      if(+depositPercent.value < 0 || +depositPercent.value > 100){
+        alert('введите корректное значение в поле "Процент"');
+        depositPercent.value = '';
+        start.disabled = true;
+      } else start.disabled = false;
+    };
+    const valueSelect = this.value;
+    if(valueSelect === 'other'){
+      depositPercent.style.display = 'inline-block';
+      depositPercent.value = '';
+      depositPercent.addEventListener('input', validatePercent);
+      
+    } else {
+      depositPercent.style.display = 'none';
+      depositPercent.value = valueSelect;
+      depositPercent.removeEventListener('input', validatePercent);
+    }
+    
+  }
+  depositHandler(){
+    if(depositCheck.checked){
+      depositBank.style.display = 'inline-block';
+      depositAmount.style.display = 'inline-block';
+      this.deposit = true;
+      depositBank.addEventListener('change', this.changePercent);
+    }
+    if(!depositCheck.checked){
+      depositBank.style.display = 'none';
+      depositAmount.style.display = 'none';
+      depositBank.value = '';
+      depositAmount.value = '';
+      this.deposit = false;
+      depositBank.removeEventListener('change', this.changePercent);
+    }
   }
   blockInputs(){
     document.querySelectorAll('.data input[type="text"]').forEach(item =>{
@@ -237,12 +285,10 @@ class AppData {
     cancel.addEventListener('click', this.reset.bind(this));
     this.validateText();
     this.validateNumber();
-    // expensesPlus.addEventListener('click', this.addExpensesBlock.bind(this));
-    // incomePlus.addEventListener('click', this.addIncomeBlock.bind(this));
     expensesPlus.addEventListener('click', this.addBlock.bind(this));
     incomePlus.addEventListener('click', this.addBlock.bind(this));
-
     periodSelect.addEventListener('input', this.getPeriodAmount.bind(this));
+    depositCheck.addEventListener('change', this.depositHandler.bind(this));
   }
 }
 
