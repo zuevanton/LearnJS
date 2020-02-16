@@ -25,7 +25,8 @@ const start = document.getElementById('start'),
     depositPercent = document.querySelector('.deposit-percent');
 
 let incomeItems = document.querySelectorAll('.income-items'),
-    expensesItems = document.querySelectorAll('.expenses-items');
+    expensesItems = document.querySelectorAll('.expenses-items'),
+    appDataLocal = {};
 
 class AppData {
 
@@ -64,6 +65,60 @@ class AppData {
     this.showResult();
     this.blockInputs();
     this.showClear();
+    appDataLocal = {
+      budgetMonth: this.budgetMonth,
+      budgetDay: this.budgetDay,
+      expensesMonth: this.expensesMonth,
+      additionalIncome: this.addIncome.join(', '),
+      additionalExpenses: this.addExpenses.join(', '),
+      incomePeriod: this.calcPeriod(),
+      targetMonth: this.getTargetMonth()
+    };
+    localStorage.setItem('newAppData', JSON.stringify(appDataLocal));
+    this.setCookie('budgetMonth', this.budgetMonth);
+    this.setCookie('budgetDay', this.budgetDay);
+    this.setCookie('expensesMonth', this.expensesMonth);
+    this.setCookie('additionalIncome', this.additionalIncome);
+    this.setCookie('additionalExpenses', this.additionalExpenses);
+    this.setCookie('incomePeriod', this.incomePeriod);
+    this.setCookie('targetMonth', this.targetMonth);
+    this.setCookie('isLoad', true);
+  }
+  setCookie(name, value){
+    let cookie = encodeURIComponent(name) + "=" + encodeURIComponent(value);
+    document.cookie = cookie;
+  }
+  getCookie(name) {
+    let matches = document.cookie.match(new RegExp(
+      "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+    ));
+    return matches ? decodeURIComponent(matches[1]) : undefined;
+  }
+  deleteAllCookies() {
+    let cookies = document.cookie.split(";");
+    cookies.forEach(cookie => {
+      let eqPos = cookie.indexOf("=");
+      let name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+      document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    });
+  }
+  showResultsFromLocal(){
+    if(localStorage.getItem('newAppData')){
+      appDataLocal = JSON.parse(localStorage.getItem('newAppData'));
+      Object.assign(appData, appDataLocal);
+    }
+    for(let i in appDataLocal){
+      if(!this.getCookie(i)){
+        localStorage.removeItem('newAppData');
+        this.deleteAllCookies();
+        window.location.reload();
+      }
+    }
+    this.showResult();
+    start.style.display = 'none';
+    cancel.style.display = 'block';
+    let inputs = document.querySelectorAll('.data input[type="text"]');
+    inputs.forEach(elem => elem.disabled = true);
   }
   showResult(){
     budgetMonthValue.value = this.budgetMonth;
@@ -270,6 +325,8 @@ class AppData {
     depositPercent.style.display = 'none';
     depositBank.style.display = 'none';
     depositAmount.style.display = 'none';
+
+    localStorage.removeItem('newAppData');
   }
   init(){
     start.addEventListener('click', this.start.bind(this));
@@ -285,3 +342,4 @@ class AppData {
 
 const appData = new AppData();
 appData.init();
+appData.showResultsFromLocal();
