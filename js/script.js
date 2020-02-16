@@ -193,17 +193,6 @@ class AppData {
     }
   }
   changePercent(){
-    // const validatePercent = () =>{
-    //   if(+depositPercent.value < 0 || +depositPercent.value > 100){
-    //     alert('введите корректное значение в поле "Процент"');
-    //     depositPercent.value = '';
-    //     start.disabled = true;
-    //   } else {
-    //     start.disabled = false;
-    //     this.percentDeposit = +depositPercent.value;
-    //     console.log(this.percentDeposit);
-    //   }
-    // };
     const valueSelect = this.value;
     if(valueSelect === 'other'){
       depositPercent.style.display = 'inline-block';
@@ -274,6 +263,11 @@ class AppData {
         item.remove();
       }
     });
+    depositCheck.checked = false;
+    depositBank.value = '';
+    depositPercent.style.display = 'none';
+    depositBank.style.display = 'none';
+    depositAmount.style.display = 'none';
   }
   init(){
     start.addEventListener('click', this.start.bind(this));
