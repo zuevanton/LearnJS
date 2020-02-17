@@ -106,6 +106,11 @@ class AppData {
     if(localStorage.getItem('newAppData')){
       appDataLocal = JSON.parse(localStorage.getItem('newAppData'));
       Object.assign(appData, appDataLocal);
+      start.style.display = 'none';
+      cancel.style.display = 'block';
+      let inputs = document.querySelectorAll('.data input[type="text"]');
+      inputs.forEach(elem => elem.disabled = true);
+      depositCheck.disabled = true;
     }
     for(let i in appDataLocal){
       if(!this.getCookie(i)){
@@ -115,10 +120,6 @@ class AppData {
       }
     }
     this.showResult();
-    start.style.display = 'none';
-    cancel.style.display = 'block';
-    let inputs = document.querySelectorAll('.data input[type="text"]');
-    inputs.forEach(elem => elem.disabled = true);
   }
   showResult(){
     budgetMonthValue.value = this.budgetMonth;
@@ -144,7 +145,7 @@ class AppData {
     this.budgetDay = Math.floor(this.budgetMonth / 30);
   }
   getTargetMonth(){
-    return Math.ceil(targetAmount.value / this.budgetMonth);
+    return targetAmount.value ? Math.ceil(targetAmount.value / this.budgetMonth) : 0;
   }
   getStatusIncome(){
     if (this.budgetDay >= 1200) {
